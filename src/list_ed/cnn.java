@@ -13,12 +13,14 @@ public class cnn  {
      public static Statement  cn() throws SQLException {  
             Connection cnn = DriverManager.getConnection(host,"root",""); 
             Statement stmt = cnn.createStatement();  return stmt; }  
-      
-     public static  void Sql(String x) {
-        try {  cn().executeUpdate(x); } catch (Exception ex) { System.out.println("Insert Error."); } }    
+       
+     public static  boolean Sql(String x) {
+        try {  cn().executeUpdate(x); return true; } catch (Exception ex) { return false;} }    
        
      public static  ResultSet Select(String x) throws SQLException { return cn().executeQuery(x); }
      ///////////////////////////////////////////////////////////////////////////////////////////////
+     
+     
      // dAp FUNCTION
      //ถ้า Table , col มี value นี้ จะ return true;
      public static boolean DBhave(String Table,String col,String value){
@@ -29,6 +31,7 @@ public class cnn  {
         } catch (Exception ex) { System.err.println("DBerror conect.");  return false;}        
         
      }
+     
        //ถ้า select เจอจะ return true;
        public static boolean DBhave(String select){  
           try {  
@@ -65,8 +68,7 @@ public class cnn  {
          
         }     
 }
-
-
+ 
  //  Sql3("UPDATE `staff` SET `Sf_name` = '1', `Sf_address` = '1', `Sf_status` = '5', `sf_pass` = '1' WHERE  `Sf_id` = '1';");
        /*try {  
             ResultSet rs = root().executeQuery("SELECT * FROM durable");  
