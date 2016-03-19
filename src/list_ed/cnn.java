@@ -4,8 +4,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;    
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class cnn  { 
      
@@ -46,7 +48,7 @@ public class cnn  {
             ResultSet rs = cn().executeQuery(select); 
             if(rs.next()) return rs.getInt("COUNT(*)"); 
             else return 0;
-        } catch (Exception ex) { System.err.println("DBerror conect.");  return 0;}     
+        } catch (Exception ex) { System.err.println("DBerror conect.");  return -1;}     
           } 
           
           public static int DBnum(String table,String col,String value){  // ตาราง,คอลัม,ค่าที่กำหนด
@@ -57,10 +59,31 @@ public class cnn  {
         } catch (Exception ex) { System.err.println("DBerror conect.");  return 0;}     
           }
             
+           public static ArrayList<String > DBselect(String select){ 
+           ArrayList<String >  list     = new ArrayList<String >();    
+               
+          try {  
+            ResultSet rs = cn().executeQuery(select); 
+            ResultSetMetaData rsmd = rs.getMetaData();
+              //System.out.println(rsmd.getColumnCount());
+              
+              if(rs.next()) {
+                 list.add("ok"); 
+              for (int i = 1; i < rsmd.getColumnCount(); i++) {
+                 String col_i =   rs.getString(rsmd.getColumnName(i)); 
+                 list.add(col_i);
+              }
+              
+                return list;
+            }
+            else { list.add("ไม่พบ"); return list;}
+        } catch (Exception ex) { System.err.println("DBerror conect."); list.add("ผิดพลาด");  return list;}     
+          } 
         //--------------------------//-----------------//--------//----//--//
           public static void main(String[] a) throws SQLException{ 
              
               String str = "";
+              //str =  DBselect("SELECT * FROM `durable` ").get(5);
         //str = "num : "+DBnum("durable", "da_r_number", "401");
         //str = "num : "+DBnum("SELECT COUNT(*) FROM durable");
         //str = DBhave("lend","l_id","14");

@@ -12,6 +12,10 @@ import java.util.Map;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel; 
+import static list_ed.cnn.DBnum;
+import static list_ed.cnn.DBselect;
+import static list_ed.cnn.Sql;
+import static list_ed.codelend.getDateTime;
 
 /**
  *
@@ -37,6 +41,7 @@ public class lend extends javax.swing.JPanel {
     String  status = "สถานะ";
     String  dap    = "แผนก";
     String  about  = "รายละเอียด";
+    String  room   = "ห้อง";
      
     String  kname  = "ชื่อครุ";
     String  bran   = "ยี่ห้อ"; 
@@ -47,7 +52,26 @@ public class lend extends javax.swing.JPanel {
         kname = jComboBoxK_Name.getSelectedItem().toString();
         bran  = jComboBoxBrane .getSelectedItem().toString();
         num   = jSpinnerNum.getValue().toString();
-        
+      
+         if(kname.length()==0||bran.length()==0 ||Integer.parseInt(num)<1){
+             texterror.setText("ระบุครุภัณฑ์ หรือ จำนวนไม่ถูกต้อง");
+             return;
+             }
+         //เช็คก่อนว่า พบรายการ หรือ มีจำนวน พอหรือไม่
+         String  check = "SELECT COUNT(*) FROM `durable` WHERE `da_name` LIKE '"+kname+"' AND `da_band` LIKE '"+bran+"' AND `da_status` LIKE 'เบิกได้' ";
+         int Num_inDB = DBnum(check);
+         if(Num_inDB <0){
+             texterror.setText("ไม่สามารถเชื่อมต่อฐานข้อมูลได้");
+             return;
+         }else if(Num_inDB == 0){
+             texterror.setText("ไม่พบรายการที่เลือกในขณะนี้ , ถูกเบิกไปหมดแล้ว");
+             return;
+         }
+         else if(Num_inDB < Integer.parseInt(num)){
+             texterror.setText("รายการที่เลือกมีจำนวนไม่พอ เหลือ "+Num_inDB+" ชิ้น");
+             return;
+         }
+         
     final JButton b = new JButton(kname+" - "+bran+" - "+num+"ชิ้น                         X"); 
        b.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {  removeButton(b);  } });
@@ -83,7 +107,7 @@ public class lend extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        texterror = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
@@ -100,6 +124,8 @@ public class lend extends javax.swing.JPanel {
         jLabel12 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         jButtonSAVE = new javax.swing.JButton();
+        jLabel13 = new javax.swing.JLabel();
+        inputroom = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(860, 573));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -109,12 +135,12 @@ public class lend extends javax.swing.JPanel {
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel2.setText("สถานะ");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, -1, -1));
+        jLabel2.setText("ห้องที่ใช้");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setText("เลือกครุภัณฑ์");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 280, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel4.setText("ข้อมูลผู้เบิก");
@@ -126,16 +152,16 @@ public class lend extends javax.swing.JPanel {
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText("ชื่อครุภัณฑ์");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 330, -1, -1));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText("แผนก");
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, -1));
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 51, 51));
-        jLabel8.setText("แจ้งเตือน");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 490, -1, -1));
+        texterror.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        texterror.setForeground(new java.awt.Color(255, 51, 51));
+        texterror.setText("แจ้งเตือน");
+        add(texterror, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("รายละเอียด");
@@ -143,11 +169,11 @@ public class lend extends javax.swing.JPanel {
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel10.setText("ยี่ห้อ");
-        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, -1, -1));
+        add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("จำนวน");
-        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, -1));
+        add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, -1, -1));
         add(inputName, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 150, -1));
         add(inputStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 150, -1));
 
@@ -155,20 +181,20 @@ public class lend extends javax.swing.JPanel {
         inputAbout.setRows(5);
         jScrollPane1.setViewportView(inputAbout);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 150, 90));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 150, 90));
 
         jComboBoxBrane.setEditable(true);
         jComboBoxBrane.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "sony", "sumsung", " " }));
-        add(jComboBoxBrane, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 380, 150, -1));
-        add(jSpinnerNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 420, 70, -1));
+        add(jComboBoxBrane, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 150, -1));
+        add(jSpinnerNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 430, 70, -1));
 
         jComboBoxK_Name.setEditable(true);
         jComboBoxK_Name.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "คอม all in one", "คอม pc", "โต๊ะ" }));
-        add(jComboBoxK_Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 330, 150, -1));
+        add(jComboBoxK_Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 340, 150, -1));
 
         jComboBoxDAP.setEditable(true);
         jComboBoxDAP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "วิศวกรรมซอฟต์แวร์", "มัลติมีเดีย", "อื่น ๆ " }));
-        add(jComboBoxDAP, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 140, -1, -1));
+        add(jComboBoxDAP, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 120, -1, -1));
 
         jButtonAdd.setText("เพิ่มในรายการ  >>");
         jButtonAdd.addActionListener(new java.awt.event.ActionListener() {
@@ -176,7 +202,7 @@ public class lend extends javax.swing.JPanel {
                 jButtonAddActionPerformed(evt);
             }
         });
-        add(jButtonAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 450, 260, -1));
+        add(jButtonAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 260, -1));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -197,6 +223,14 @@ public class lend extends javax.swing.JPanel {
             }
         });
         add(jButtonSAVE, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 490, 260, 30));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel13.setText("สถานะ");
+        add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, -1, -1));
+
+        inputroom.setEditable(true);
+        inputroom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "401", "402", "403", "404", "405", "406", "อื่น ๆ" }));
+        add(inputroom, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
@@ -209,9 +243,28 @@ public class lend extends javax.swing.JPanel {
         status = inputStatus.getText();
         dap    = jComboBoxDAP .getSelectedItem().toString();
         about  = inputAbout.getText();
+        room   = inputroom.getSelectedItem().toString();
+        String da_id = "1";
+        String Date  = getDateTime();
         
         for (int i = 0; i < list.size(); i++) {
-             System.out.println(list.get(i)[0]+" "+list.get(i)[1]+" "+list.get(i)[2]); 
+            
+            kname = list.get(i)[0];
+            bran  = list.get(i)[1];
+            num   = list.get(i)[2];
+               
+            for (int j = 0; j < Integer.parseInt(num); j++) {
+             ArrayList<String >  sql     =  
+             DBselect("SELECT * FROM `durable` WHERE `da_name` LIKE '"+kname+"' AND `da_band` LIKE '"+bran+"' AND `da_status` LIKE 'เบิกได้' ");
+             da_id = sql.get(1);
+             String str = "INSERT INTO  `lend` (`l_id`, `l_da_id`, `l_name`, `l_dep`, `l_room`, `l_about`, `l_date`, `l_status`) VALUES "
+                     + "(NULL, '"+da_id+"', '"+name+"', '"+dap+"', '"+room+"', '"+about+"', '"+Date+"', '"+status+"');";
+             System.out.println(str);
+             Sql(str);
+             //ทำให้ id ครุภัณฑ์ ที่เบิกมา status  =  ถูกยืม
+             
+              }
+             
         }
         
     }//GEN-LAST:event_jButtonSAVEActionPerformed
@@ -221,6 +274,7 @@ public class lend extends javax.swing.JPanel {
     private javax.swing.JTextArea inputAbout;
     private javax.swing.JTextField inputName;
     private javax.swing.JTextField inputStatus;
+    private javax.swing.JComboBox<String> inputroom;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonAdd;
     private javax.swing.JButton jButtonSAVE;
@@ -231,16 +285,17 @@ public class lend extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinnerNum;
+    private javax.swing.JLabel texterror;
     // End of variables declaration//GEN-END:variables
 }
