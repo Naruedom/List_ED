@@ -85,8 +85,7 @@ public class cnn  {
            
            
             static void combosetlist(JComboBox combobox, String col,String tb)  { 
-            // combolist(jComboBoxB,"da_band","durable");
-              
+            // combolist(jComboBoxB,"da_band","durable"); 
          try {
             ResultSet  rs = Select("select distinct "+col+" from "+tb);
          

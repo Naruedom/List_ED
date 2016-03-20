@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package list_ed;
  
 import java.awt.event.ActionEvent;
@@ -58,10 +53,21 @@ public class lend extends javax.swing.JPanel {
       
     public  void addButton() {  
        
+        name   = inputName  .getText();
+        status = inputStatus.getText();
+        dap    = jComboBoxDAP .getSelectedItem().toString();
+        about  = inputAbout.getText();
+        room   = inputroom.getSelectedItem().toString();
+        
         kname = jComboBoxK_Name.getSelectedItem().toString();
         bran  = jComboBoxBrane .getSelectedItem().toString();
         num   = jSpinnerNum.getValue().toString();
       
+        if(name.length()==0||status.length()==0||dap.length()==0 ||room.length()==0){
+            texterror.setText("ระบุข้อมูลผู้เบิกไม่ครบ");
+             return;  
+        } 
+        
          if(kname.length()==0||bran.length()==0 ||Integer.parseInt(num)<1){
              texterror.setText("ระบุครุภัณฑ์ หรือ จำนวนไม่ถูกต้อง");
              return;
@@ -70,7 +76,7 @@ public class lend extends javax.swing.JPanel {
          String  check = "SELECT COUNT(*) FROM `durable` WHERE `da_name` LIKE '"+kname+"' AND `da_band` LIKE '"+bran+"' AND `da_status` LIKE 'เบิกได้' ";
          int Num_inDB = DBnum(check);
          if(Num_inDB <0){
-             texterror.setText("ไม่สามารถเชื่อมต่อฐานข้อมูลได้");
+             error();
              return;
          }else if(Num_inDB == 0){
              texterror.setText("ไม่พบรายการที่เลือกในขณะนี้ , ถูกเบิกไปหมดแล้ว");
@@ -97,6 +103,7 @@ public class lend extends javax.swing.JPanel {
         list.remove(i);
         printlist(list);
     }
+    
     
     static void printlist(ArrayList<String[]> x){
         for (int i = 0; i < x.size(); i++) {
@@ -192,7 +199,6 @@ public class lend extends javax.swing.JPanel {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 190, 150, 90));
 
-        jComboBoxBrane.setEditable(true);
         jComboBoxBrane.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "sony", "sumsung", " " }));
         jComboBoxBrane.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -204,7 +210,6 @@ public class lend extends javax.swing.JPanel {
         jSpinnerNum.setName(""); // NOI18N
         add(jSpinnerNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 430, 70, -1));
 
-        jComboBoxK_Name.setEditable(true);
         jComboBoxK_Name.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "คอม all in one", "คอม pc", "โต๊ะ" }));
         jComboBoxK_Name.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -286,7 +291,8 @@ public class lend extends javax.swing.JPanel {
              String str = "INSERT INTO  `lend` (`l_id`, `l_da_id`, `l_name`, `l_dep`, `l_room`, `l_about`, `l_date`, `l_status`) VALUES "
                      + "(NULL, '"+da_id+"', '"+name+"', '"+dap+"', '"+room+"', '"+about+"', '"+Date+"', '"+status+"');";
              System.out.println(str);
-             Sql(str);
+             if(!Sql(str)) {error();  return;}
+             Sql("UPDATE `durable_articles`.`durable` SET `da_status` = 'ถูกยืม' WHERE `durable`.`da_id` = "+da_id+";");
              //ทำให้ id ครุภัณฑ์ ที่เบิกมา status  =  ถูกยืม
              
               }
@@ -303,24 +309,24 @@ public class lend extends javax.swing.JPanel {
         
        
     }//GEN-LAST:event_jComboBoxK_NameFocusLost
-
+   
+    void error(){
+        texterror.setText("ไม่สามารถเชื่อมต่อฐานข้อมูลได้");
+    }
+    
     private void jComboBoxK_NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxK_NameActionPerformed
         String getkname = jComboBoxK_Name.getSelectedItem().toString(); //"คอม pc"; //
         String kname =  " where da_name = '"+getkname+"'" ;
        // String sql   =  "select distinct da_band from durable "+kname ; 
-        //SELECT COUNT(da_band) FROM durable  where da_name = 'คอม pc'
-       // System.out.println(sql);
+        //SELECT COUNT(da_band) FROM durable  where da_name = 'คอม pc' 
         int dbnum = DBnum("SELECT COUNT(*) FROM durable "+kname)  ;
-        //combosetlist(jComboBoxBrane, "da_band","durable");
-        //System.out.println(dbnum);
-         if( dbnum == -1) 
+        //combosetlist(jComboBoxBrane, "da_band","durable"); 
+        if( dbnum == -1) 
            System.out.println("error-1");
         else if(dbnum == 0) 
            combosetlist(jComboBoxBrane, "da_band","durable"); 
-        else 
-        {
-           combosetlist(jComboBoxBrane, "da_band","durable"+kname);  
-        } 
+        else   
+           combosetlist(jComboBoxBrane, "da_band","durable"+kname);   
         
     }//GEN-LAST:event_jComboBoxK_NameActionPerformed
 
