@@ -59,7 +59,7 @@ public class cnn  {
             ResultSet rs = cn().executeQuery("SELECT COUNT(*) FROM "+table+" where "+col+" = "+value); 
             if(rs.next()) return rs.getInt("COUNT(*)"); 
             else return 0;
-        } catch (Exception ex) { System.err.println("DBerror conect.");  return 0;}     
+        } catch (Exception ex) { System.err.println("DBerror conect.");  return -1;}     
           }
             
            public static ArrayList<String > DBselect(String select){ 
@@ -84,23 +84,28 @@ public class cnn  {
           } 
            
            
-           static void combosetlist(JComboBox combobox, String col,String tb) { // combolist("da_band","durable");
+            static void combosetlist(JComboBox combobox, String col,String tb)  { 
+            // combolist(jComboBoxB,"da_band","durable");
+              
          try {
             ResultSet  rs = Select("select distinct "+col+" from "+tb);
-            combobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
-       
-            while (rs.next()) {
-            String a = rs.getString(col); 
-               //list.addItem(a);
-                   //System.out.println(a);
-                   combobox.addItem(a);
-               }
-         } catch (SQLException ex) {
+         
+            combobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { })); 
+            while (rs.next()) combobox.addItem( rs.getString(col)); 
+            } catch (SQLException ex) {
              Logger.getLogger(cnn.class.getName()).log(Level.SEVERE, null, ex);
-         }
-             
-               
-           }
+            }  }
+            
+            static void combosetlist(JComboBox combobox, String sql) { 
+            // combolist(jComboBoxB , "select distinct da_band from durable");
+          try {  ResultSet  rs = Select(sql);
+            ResultSetMetaData rsmd = rs.getMetaData();
+            combobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { })); 
+            if(rs.next())
+            while (rs.next()) combobox.addItem( rs.getString(rsmd.getColumnName(1)));
+            } catch (SQLException ex) {
+             Logger.getLogger(cnn.class.getName()).log(Level.SEVERE, null, ex);
+            } }
            
         //--------------------------//-----------------//--------//----//--//
           public static void main(String[] a) throws SQLException{ 

@@ -33,8 +33,10 @@ public class lend extends javax.swing.JPanel {
         jButton2.setVisible(false);  
         
         
-       combosetlist(jComboBoxDAP,"l_dep","lend");
-       combosetlist(jComboBoxBrane,"l_dep","lend");
+       combosetlist(jComboBoxDAP,"l_dep","lend"); 
+       combosetlist(jComboBoxK_Name,"da_name","durable");
+       combosetlist(inputroom,"da_r_number","durable");
+       
        //combosetlist();
        
         //jComboBoxDAP .setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "401", "402", "403", "404", "405", "406", "อื่น ๆ" }));
@@ -192,6 +194,11 @@ public class lend extends javax.swing.JPanel {
 
         jComboBoxBrane.setEditable(true);
         jComboBoxBrane.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "sony", "sumsung", " " }));
+        jComboBoxBrane.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxBraneActionPerformed(evt);
+            }
+        });
         add(jComboBoxBrane, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 150, -1));
 
         jSpinnerNum.setName(""); // NOI18N
@@ -199,6 +206,16 @@ public class lend extends javax.swing.JPanel {
 
         jComboBoxK_Name.setEditable(true);
         jComboBoxK_Name.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "คอม all in one", "คอม pc", "โต๊ะ" }));
+        jComboBoxK_Name.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBoxK_NameActionPerformed(evt);
+            }
+        });
+        jComboBoxK_Name.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jComboBoxK_NameFocusLost(evt);
+            }
+        });
         add(jComboBoxK_Name, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 340, 150, -1));
 
         jComboBoxDAP.setEditable(true);
@@ -277,6 +294,35 @@ public class lend extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_jButtonSAVEActionPerformed
+
+    private void jComboBoxBraneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBraneActionPerformed
+        
+    }//GEN-LAST:event_jComboBoxBraneActionPerformed
+
+    private void jComboBoxK_NameFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jComboBoxK_NameFocusLost
+        
+       
+    }//GEN-LAST:event_jComboBoxK_NameFocusLost
+
+    private void jComboBoxK_NameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxK_NameActionPerformed
+        String getkname = jComboBoxK_Name.getSelectedItem().toString(); //"คอม pc"; //
+        String kname =  " where da_name = '"+getkname+"'" ;
+       // String sql   =  "select distinct da_band from durable "+kname ; 
+        //SELECT COUNT(da_band) FROM durable  where da_name = 'คอม pc'
+       // System.out.println(sql);
+        int dbnum = DBnum("SELECT COUNT(*) FROM durable "+kname)  ;
+        //combosetlist(jComboBoxBrane, "da_band","durable");
+        //System.out.println(dbnum);
+         if( dbnum == -1) 
+           System.out.println("error-1");
+        else if(dbnum == 0) 
+           combosetlist(jComboBoxBrane, "da_band","durable"); 
+        else 
+        {
+           combosetlist(jComboBoxBrane, "da_band","durable"+kname);  
+        } 
+        
+    }//GEN-LAST:event_jComboBoxK_NameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
