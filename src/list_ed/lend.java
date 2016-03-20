@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import static list_ed.cnn.DBnum;
 import static list_ed.cnn.DBselect;
 import static list_ed.cnn.Sql;
+import static list_ed.cnn.combosetlist;
 import static list_ed.codelend.getDateTime;
 
 /**
@@ -31,6 +32,12 @@ public class lend extends javax.swing.JPanel {
         jLabel12.setVisible(false);
         jButton2.setVisible(false);  
         
+        
+       combosetlist(jComboBoxDAP,"l_dep","lend");
+       combosetlist(jComboBoxBrane,"l_dep","lend");
+       //combosetlist();
+       
+        //jComboBoxDAP .setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "401", "402", "403", "404", "405", "406", "อื่น ๆ" }));
        // printlist(list);
         
       }
@@ -186,6 +193,8 @@ public class lend extends javax.swing.JPanel {
         jComboBoxBrane.setEditable(true);
         jComboBoxBrane.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "sony", "sumsung", " " }));
         add(jComboBoxBrane, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 390, 150, -1));
+
+        jSpinnerNum.setName(""); // NOI18N
         add(jSpinnerNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 430, 70, -1));
 
         jComboBoxK_Name.setEditable(true);
@@ -216,7 +225,7 @@ public class lend extends javax.swing.JPanel {
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, 340, 420));
 
-        jButtonSAVE.setText("บันทึก");
+        jButtonSAVE.setText("บันทึกรายการเบิก");
         jButtonSAVE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSAVEActionPerformed(evt);

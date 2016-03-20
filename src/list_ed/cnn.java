@@ -8,6 +8,9 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JComboBox;
 
 public class cnn  { 
      
@@ -79,10 +82,31 @@ public class cnn  {
             else { list.add("ไม่พบ"); return list;}
         } catch (Exception ex) { System.err.println("DBerror conect."); list.add("ผิดพลาด");  return list;}     
           } 
+           
+           
+           static void combosetlist(JComboBox combobox, String col,String tb) { // combolist("da_band","durable");
+         try {
+            ResultSet  rs = Select("select distinct "+col+" from "+tb);
+            combobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { }));
+       
+            while (rs.next()) {
+            String a = rs.getString(col); 
+               //list.addItem(a);
+                   //System.out.println(a);
+                   combobox.addItem(a);
+               }
+         } catch (SQLException ex) {
+             Logger.getLogger(cnn.class.getName()).log(Level.SEVERE, null, ex);
+         }
+             
+               
+           }
+           
         //--------------------------//-----------------//--------//----//--//
           public static void main(String[] a) throws SQLException{ 
              
               String str = "";
+               //combolist("da_band","durable");
               //str =  DBselect("SELECT * FROM `durable` ").get(5);
         //str = "num : "+DBnum("durable", "da_r_number", "401");
         //str = "num : "+DBnum("SELECT COUNT(*) FROM durable");
