@@ -93,22 +93,20 @@ public class lend extends javax.swing.JPanel {
         public void actionPerformed(ActionEvent e) {  removeButton(b);  } });
       
        
-        for (int j = 0; j < list.size(); j++) { //เช็คว่ามี ชื่อคุร กับ แบรน นี้ถูกเลือกไว้แล้วหรือไม่
-            
+        for (int j = 0; j < list.size(); j++) { //เช็คว่ามี ชื่อคุร กับ แบรน นี้ถูกเลือกไว้แล้วหรือไม่ 
             if(list.get(j)[0]==kname && list.get(j)[1]== bran )//ถ้ามีอยู๋แล้ว
             { //แภ้ไขที่เดิมเป็นค่าใหม่ ปุ่มด้วย
-              list.set(j, new String[] { kname,bran,num});
-              buttonlist.set(j, b);
-              buttonlist.get(j).setText(kname+" - "+bran+" - "+num+"ชิ้น                         X");
+             // list.set(j, new String[] { kname,bran,num});
+             // buttonlist.set(j, b);
+              //buttonlist.get(j).setText(kname+" - "+bran+" - "+num+"ชิ้น                         X");
               //jPanel1.add(b);  
-              texterror.setText("");
+              texterror.setText("มีค่าแล้ว list ที่"+j);
               return;
             }
         }
        
        list.add( new String[] { kname,bran,num});  
-       buttonlist.add(b);
-       
+       buttonlist.add(b); 
        jPanel1.add(b); 
        texterror.setText("");
     }
