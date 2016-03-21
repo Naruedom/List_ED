@@ -87,12 +87,30 @@ public class lend extends javax.swing.JPanel {
              return;
          }
          
+         //ถ้าเบิกได้
     final JButton b = new JButton(kname+" - "+bran+" - "+num+"ชิ้น                         X"); 
        b.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {  removeButton(b);  } });
-       jPanel1.add(b); 
-       buttonlist.add(b);
+      
+       
+        for (int j = 0; j < list.size(); j++) { //เช็คว่ามี ชื่อคุร กับ แบรน นี้ถูกเลือกไว้แล้วหรือไม่
+            
+            if(list.get(j)[0]==kname && list.get(j)[1]== bran )//ถ้ามีอยู๋แล้ว
+            { //แภ้ไขที่เดิมเป็นค่าใหม่ ปุ่มด้วย
+              list.set(j, new String[] { kname,bran,num});
+              buttonlist.set(j, b);
+              buttonlist.get(j).setText(kname+" - "+bran+" - "+num+"ชิ้น                         X");
+              //jPanel1.add(b);  
+              texterror.setText("");
+              return;
+            }
+        }
+       
        list.add( new String[] { kname,bran,num});  
+       buttonlist.add(b);
+       
+       jPanel1.add(b); 
+       texterror.setText("");
     }
 
     public void removeButton(JButton x) { 
@@ -298,7 +316,7 @@ public class lend extends javax.swing.JPanel {
               }
              
         }
-        
+        texterror.setText("");
     }//GEN-LAST:event_jButtonSAVEActionPerformed
 
     private void jComboBoxBraneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxBraneActionPerformed
@@ -328,6 +346,7 @@ public class lend extends javax.swing.JPanel {
         else   
            combosetlist(jComboBoxBrane, "da_band","durable"+kname);   
         
+        texterror.setText("");
     }//GEN-LAST:event_jComboBoxK_NameActionPerformed
 
 
