@@ -29,8 +29,6 @@ public class lend extends javax.swing.JPanel {
         
         
        combosetlist(jComboBoxDAP,"l_dep","lend"); 
-       combosetlist(jComboBoxStatus,"l_s","lend");
-       
        combosetlist(jComboBoxK_Name,"da_name","durable");
        combosetlist(inputroom,"da_r_number","durable");
        
@@ -56,7 +54,7 @@ public class lend extends javax.swing.JPanel {
     public  void addButton() {  
        
         name   = inputName  .getText();
-        status = jComboBoxStatus.getSelectedItem().toString();// inputStatus.getText();
+        status = inputStatus.getText();
         dap    = jComboBoxDAP .getSelectedItem().toString();
         about  = inputAbout.getText();
         room   = inputroom.getSelectedItem().toString();
@@ -90,20 +88,18 @@ public class lend extends javax.swing.JPanel {
          }
          
          //ถ้าเบิกได้
-         String  BTv  = kname+" - "+bran+" - "+num+"ชิ้น                         X";
-         final JButton b = new JButton( BTv ); 
-         b.addActionListener(new ActionListener() {
-         public void actionPerformed(ActionEvent e) {  removeButton(b);  } }); 
+    final JButton b = new JButton(kname+" - "+bran+" - "+num+"ชิ้น                         X"); 
+       b.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {  removeButton(b);  } });
+      
        
         for (int j = 0; j < list.size(); j++) { //เช็คว่ามี ชื่อคุร กับ แบรน นี้ถูกเลือกไว้แล้วหรือไม่ 
-            System.err.println(list.get(j)[0] +"- A -"+list.get(j)[1]+ "\n" + kname + "- B -"+ bran);
-            if(  list.get(j)[0].equals( kname )  &&   
-                 list.get(j)[1].equals( bran) )  //ถ้ามีอยู๋แล้ว
+            if(list.get(j)[0]==kname && list.get(j)[1]== bran )//ถ้ามีอยู๋แล้ว
             { //แภ้ไขที่เดิมเป็นค่าใหม่ ปุ่มด้วย
-                 
-                 
-              list.set(j, new String[] { kname,bran,num}); 
-              buttonlist.get(j).setText(BTv);  
+             // list.set(j, new String[] { kname,bran,num});
+             // buttonlist.set(j, b);
+              //buttonlist.get(j).setText(kname+" - "+bran+" - "+num+"ชิ้น                         X");
+              //jPanel1.add(b);  
               texterror.setText("มีค่าแล้ว list ที่"+j);
               return;
             }
@@ -112,7 +108,6 @@ public class lend extends javax.swing.JPanel {
        list.add( new String[] { kname,bran,num});  
        buttonlist.add(b); 
        jPanel1.add(b); 
-       //printlist(list);
        texterror.setText("");
     }
 
@@ -149,6 +144,7 @@ public class lend extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         inputName = new javax.swing.JTextField();
+        inputStatus = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         inputAbout = new javax.swing.JTextArea();
         jComboBoxBrane = new javax.swing.JComboBox<>();
@@ -162,7 +158,6 @@ public class lend extends javax.swing.JPanel {
         jButtonSAVE = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         inputroom = new javax.swing.JComboBox<>();
-        jComboBoxStatus = new javax.swing.JComboBox<>();
 
         setPreferredSize(new java.awt.Dimension(860, 573));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -211,7 +206,8 @@ public class lend extends javax.swing.JPanel {
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel11.setText("จำนวน");
         add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 430, -1, -1));
-        add(inputName, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 110, -1));
+        add(inputName, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 150, -1));
+        add(inputStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 150, -1));
 
         inputAbout.setColumns(20);
         inputAbout.setRows(5);
@@ -281,11 +277,7 @@ public class lend extends javax.swing.JPanel {
 
         inputroom.setEditable(true);
         inputroom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "401", "402", "403", "404", "405", "406", "อื่น ๆ" }));
-        add(inputroom, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, 110, -1));
-
-        jComboBoxStatus.setEditable(true);
-        jComboBoxStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "นักศึกษา", "อาจารย์" }));
-        add(jComboBoxStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 110, -1));
+        add(inputroom, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
@@ -295,7 +287,7 @@ public class lend extends javax.swing.JPanel {
     private void jButtonSAVEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSAVEActionPerformed
         
         name   = inputName  .getText();
-        status = jComboBoxStatus.getSelectedItem().toString();//inputStatus.getText();
+        status = inputStatus.getText();
         dap    = jComboBoxDAP .getSelectedItem().toString();
         about  = inputAbout.getText();
         room   = inputroom.getSelectedItem().toString();
@@ -359,6 +351,7 @@ public class lend extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea inputAbout;
     private javax.swing.JTextField inputName;
+    private javax.swing.JTextField inputStatus;
     private javax.swing.JComboBox<String> inputroom;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButtonAdd;
@@ -366,7 +359,6 @@ public class lend extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> jComboBoxBrane;
     private javax.swing.JComboBox<String> jComboBoxDAP;
     private javax.swing.JComboBox<String> jComboBoxK_Name;
-    private javax.swing.JComboBox<String> jComboBoxStatus;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;

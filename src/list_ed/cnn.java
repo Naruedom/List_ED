@@ -90,10 +90,7 @@ public class cnn  {
             ResultSet  rs = Select("select distinct "+col+" from "+tb);
          
             combobox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { })); 
-            while (rs.next()) 
-               
-                combobox.addItem( rs.getString(col) ); 
-            
+            while (rs.next()) combobox.addItem( rs.getString(col)); 
             } catch (SQLException ex) {
              Logger.getLogger(cnn.class.getName()).log(Level.SEVERE, null, ex);
             }  }
