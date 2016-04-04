@@ -33,7 +33,7 @@ public class cnn  {
           try {  
             ResultSet rs = cn().executeQuery("SELECT * FROM "+Table+" where "+col+" = "+value);  
             if(rs.next()) return true;  else  return false;
-        } catch (Exception ex) { System.err.println("DBerror conect.");  return false;}        
+        } catch (Exception ex) { System.err.println("DBhave_error conect.");  return false;}        
         
      }
      
@@ -42,7 +42,7 @@ public class cnn  {
           try {  
             ResultSet rs = cn().executeQuery(select); 
             if(rs.next()) return true;  else  return false;
-        } catch (Exception ex) { System.err.println("DBerror conect.");  return false;}        
+        } catch (Exception ex) { System.err.println("DBhave2_error conect.");  return false;}        
         
      }
           //แสดงจำนวนแถว
@@ -51,7 +51,7 @@ public class cnn  {
             ResultSet rs = cn().executeQuery(select); 
             if(rs.next()) return rs.getInt("COUNT(*)"); 
             else return 0;
-        } catch (Exception ex) { System.err.println("DBerror conect.");  return -1;}     
+        } catch (Exception ex) { System.err.println("DBnum_error conect.");  return -1;}     
           } 
           
           public static int DBnum(String table,String col,String value){  // ตาราง,คอลัม,ค่าที่กำหนด
@@ -59,7 +59,7 @@ public class cnn  {
             ResultSet rs = cn().executeQuery("SELECT COUNT(*) FROM "+table+" where "+col+" = "+value); 
             if(rs.next()) return rs.getInt("COUNT(*)"); 
             else return 0;
-        } catch (Exception ex) { System.err.println("DBerror conect.");  return -1;}     
+        } catch (Exception ex) { System.err.println("DBnum2_error conect.");  return -1;}     
           }
             
            public static ArrayList<String > DBselect(String select){ 
@@ -76,11 +76,10 @@ public class cnn  {
                  String col_i =   rs.getString(rsmd.getColumnName(i)); 
                  list.add(col_i);
               }
-              
                 return list;
             }
             else { list.add("ไม่พบ"); return list;}
-        } catch (Exception ex) { System.err.println("DBerror conect."); list.add("ผิดพลาด");  return list;}     
+        } catch (Exception ex) { System.err.println("DBEerror conect."); list.add("ผิดพลาด");  return list;}     
           } 
            
            

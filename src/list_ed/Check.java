@@ -29,9 +29,16 @@ public class Check extends javax.swing.JPanel {
 ArrayList<String[]> data  =new ArrayList<String[]>();
 ArrayList<String> dataF =new ArrayList<String>();
 
+ArrayList<String> Sdata  =new ArrayList<String>();
+ArrayList<String> Odata  =new ArrayList<String>();
+ArrayList<String> Fdata  =new ArrayList<String>();
+boolean SEE = true;
+
+
     public Check() {
          initComponents();   
          updatetable();  
+         jButton2.setVisible(false);
          jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
     @Override
     public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -50,6 +57,8 @@ ArrayList<String> dataF =new ArrayList<String>();
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        buttonGroup2 = new javax.swing.ButtonGroup();
         Bcode = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -62,6 +71,8 @@ ArrayList<String> dataF =new ArrayList<String>();
         jTextField1 = new javax.swing.JTextField();
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
+        see = new javax.swing.JRadioButton();
+        mee = new javax.swing.JRadioButton();
 
         setMinimumSize(new java.awt.Dimension(660, 520));
         setPreferredSize(new java.awt.Dimension(860, 573));
@@ -139,14 +150,36 @@ ArrayList<String> dataF =new ArrayList<String>();
                 jButton4ActionPerformed(evt);
             }
         });
-        add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 480, 70, 40));
+        add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 480, 70, 40));
         add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(709, 30, 100, 20));
 
+        buttonGroup1.add(jRadioButton1);
+        jRadioButton1.setSelected(true);
         jRadioButton1.setText("ไม่ระบุห้อง");
         add(jRadioButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 30, -1, -1));
 
+        buttonGroup1.add(jRadioButton2);
         jRadioButton2.setText("ระบุห้อง");
         add(jRadioButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 30, -1, -1));
+
+        buttonGroup2.add(see);
+        see.setSelected(true);
+        see.setText("ดูข้อมูล");
+        see.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                seeActionPerformed(evt);
+            }
+        });
+        add(see, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 480, -1, -1));
+
+        buttonGroup2.add(mee);
+        mee.setText("เลือก");
+        mee.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                meeActionPerformed(evt);
+            }
+        });
+        add(mee, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 480, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -159,8 +192,8 @@ ArrayList<String> dataF =new ArrayList<String>();
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         data.clear();
-        dataF.clear();
-        updatetable();
+        dataF.clear(); 
+        updatetable();   
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void BcodeKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_BcodeKeyTyped
@@ -169,28 +202,45 @@ ArrayList<String> dataF =new ArrayList<String>();
     }//GEN-LAST:event_BcodeKeyTyped
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
+       //toPDF(Odata,Sdata,Fdata);
     }//GEN-LAST:event_jButton4ActionPerformed
-    
-    
+
+    private void meeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_meeActionPerformed
+     SEE = false; 
+    }//GEN-LAST:event_meeActionPerformed
+
+    private void seeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_seeActionPerformed
+     SEE = true;
+    }//GEN-LAST:event_seeActionPerformed
+     
         void click(int row,int col){  // Delete ROW
-       //ystem.out.println( jTable1.getValueAt( jTable1.getSelectedRow(), 0).toString() );  
-       //System.out.println(jTable1.getSelectedRow());
-        
+        //ystem.out.println( jTable1.getValueAt( jTable1.getSelectedRow(), 0).toString() );  
+        //System.out.println(jTable1.getSelectedRow()); 
         //data.get(row) 
-        //String[] a =  {data.get(row)[0]};
-        
+        //String[] a =  {data.get(row)[0]}; 
         //dataF.remove(a);
         //System.out.print( dataF .indexOf(data.get(row)));
-        data.remove(row);
-       
+        data.remove(row); 
         updatetable();
         output();
-         
-        System.out.println("------------");
-        for (int i = 0; i < dataF.size(); i++) {
-			System.out.println(dataF.get(i));
+         /*
+        System.out.println("OO----------");
+        for (int i = 0; i < Odata.size(); i++) {
+			System.out.println(Odata.get(i));
 		} 
+            System.out.println(Odata.size());
+        System.out.println("SS----------"); 
+       for (int i = 0; i < Sdata.size(); i++) {
+			System.out.println(Sdata.get(i));
+		}  
+         Fdata = Odata ; 
+         Fdata.removeAll(Sdata);
+         
+          System.out.println("FF----------"); 
+       for (int i = 0; i < Sdata.size(); i++) {
+			System.out.println(Sdata.get(i));
+		}   
+       System.out.println(Fdata.size()); */
     }
     
     void add(String a){ // if havanot add data 
@@ -209,10 +259,12 @@ ArrayList<String> dataF =new ArrayList<String>();
         } else {  System.out.println("no Code");  }
     }
    void updatetable(){ // left TB update from listDATA
+         Sdata.clear();
          DefaultTableModel model = (DefaultTableModel) jTable1.getModel(); 
          model.setRowCount(0);  
          for (int i = 0; i < data.size() ; i++) {
             addrow( data.get(i) );
+            Sdata.add(data.get(i)[0]);
         }
          
     }
@@ -234,6 +286,7 @@ ArrayList<String> dataF =new ArrayList<String>();
     void output(){
          jPanel1.removeAll(); 
          dataF.clear();
+         Odata.clear();
         x = fx;
         y = fx;
         w = 100;
@@ -249,6 +302,7 @@ ArrayList<String> dataF =new ArrayList<String>();
                     dataF.add(data.get(i)[0]);
                 }else
                 {
+                
                 String keepday = DBselect(str).get(3);  //หาห้องเพิ่ม  
              if( ! Grup.contains(keepday))  //ถ้าใน grup ไม่มี
                    Grup.add(keepday);            //เพิ่ม 
@@ -294,6 +348,7 @@ ArrayList<String> dataF =new ArrayList<String>();
                          addBTt(da_code);
                          have = true;
                          b++; 
+                         
                     }  
                 } 
                 if(!have)
@@ -314,6 +369,7 @@ ArrayList<String> dataF =new ArrayList<String>();
     void addBTt(String x){ 
       JButton  bt =   new JButton(x);
       setbt(bt);
+      Odata.add(x);
       //bt.setBackground(Color.decode("#C6DCFF")); 
     }
     
@@ -323,10 +379,12 @@ ArrayList<String> dataF =new ArrayList<String>();
       JButton  bt =   new JButton(x);
       setbt(bt);
       bt.setBackground(Color.decode("#FFA18B")); 
+      Odata.add(x);
     }    
     
      final int fx = 4;
      final int ly = 34;
+     final int nx = 105;
      
      int x = fx;
      int y = fx;
@@ -341,17 +399,18 @@ ArrayList<String> dataF =new ArrayList<String>();
           x=fx;
       }
       jPanel1.add(bt, new org.netbeans.lib.awtextra.AbsoluteConstraints(x,y,w,h)); 
-      x+=105; 
+      x+=nx; 
       newline++;
       
       bt.setBorderPainted(false);
-      bt.setPreferredSize(new Dimension(50,30));
+      //bt.setPreferredSize(new Dimension(50,30));
       bt.addActionListener(new ActionListener()
               
               
     {
   public void actionPerformed(ActionEvent e) { 
        
+      if(SEE){
       try {
         ResultSet    rs2 = Select("SELECT * FROM `durable` WHERE  da_serial = '"+bt.getText()+"'");
       
@@ -370,8 +429,14 @@ ArrayList<String> dataF =new ArrayList<String>();
    //   } catch (Exception e) {  }
        } catch (SQLException ex) { Box("เชื่อมต่อฐานข้อมูลไม่ได้","แจ้งเตือน");  } 
       
-      } });
-      
+      }
+      else if(!SEE){
+          
+          Bcode.setText(bt.getText()); 
+             scanadd();  
+          
+      }
+      } }); 
          
     }
     
@@ -379,9 +444,13 @@ ArrayList<String> dataF =new ArrayList<String>();
     {
         JOptionPane.showMessageDialog(null, infoMessage,titleBar, JOptionPane.CLOSED_OPTION);
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Bcode;
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.ButtonGroup buttonGroup2;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -393,6 +462,8 @@ ArrayList<String> dataF =new ArrayList<String>();
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JRadioButton mee;
+    private javax.swing.JRadioButton see;
     // End of variables declaration//GEN-END:variables
 
  
