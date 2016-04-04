@@ -19,7 +19,7 @@ public class Connect {
            String host = "jdbc:mysql://localhost/durable_artcles?useUnicode=true&characterEncoding=UTF-8";
            
            
-           con = DriverManager.getConnection(host,"root","564259131"); 
+           con = DriverManager.getConnection(host,"root",""); 
 
        }catch(SQLException e){System.err.println(e);}
     }

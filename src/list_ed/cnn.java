@@ -111,7 +111,7 @@ public class cnn  {
              
               String str = "";
                //combolist("da_band","durable");
-              //str =  DBselect("SELECT * FROM `durable` ").get(5);
+               //str =  DBselect("SELECT * FROM `durable` ").get(5);
         //str = "num : "+DBnum("durable", "da_r_number", "401");
         //str = "num : "+DBnum("SELECT COUNT(*) FROM durable");
         //str = DBhave("lend","l_id","14");

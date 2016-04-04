@@ -152,12 +152,13 @@ public class lend extends javax.swing.JPanel {
         jComboBoxK_Name = new javax.swing.JComboBox<>();
         jComboBoxDAP = new javax.swing.JComboBox<>();
         jButtonAdd = new javax.swing.JButton();
-        jPanel1 = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
         jButtonSAVE = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         inputroom = new javax.swing.JComboBox<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        jButton2 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(860, 573));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -251,18 +252,6 @@ public class lend extends javax.swing.JPanel {
         });
         add(jButtonAdd, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 460, 260, -1));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        jLabel12.setText("คอม all in one - sony - จำนวน 10");
-        jPanel1.add(jLabel12);
-
-        jButton2.setBackground(new java.awt.Color(255, 51, 51));
-        jButton2.setText("X");
-        jButton2.setContentAreaFilled(false);
-        jPanel1.add(jButton2);
-
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, 340, 420));
-
         jButtonSAVE.setText("บันทึกรายการเบิก");
         jButtonSAVE.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -278,6 +267,22 @@ public class lend extends javax.swing.JPanel {
         inputroom.setEditable(true);
         inputroom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "401", "402", "403", "404", "405", "406", "อื่น ๆ" }));
         add(inputroom, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 150, -1, -1));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        jPanel1.setAutoscrolls(true);
+        jPanel1.setLayout(new org.jdesktop.swingx.VerticalLayout());
+
+        jLabel12.setText("คอม all in one - sony - จำนวน 10");
+        jPanel1.add(jLabel12);
+
+        jButton2.setBackground(new java.awt.Color(255, 51, 51));
+        jButton2.setText("X");
+        jButton2.setContentAreaFilled(false);
+        jPanel1.add(jButton2);
+
+        jScrollPane2.setViewportView(jPanel1);
+
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, 340, 420));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonAddActionPerformed
@@ -373,6 +378,7 @@ public class lend extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSpinner jSpinnerNum;
     private javax.swing.JLabel texterror;
     // End of variables declaration//GEN-END:variables

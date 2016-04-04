@@ -20,6 +20,7 @@ public class mainactivity extends javax.swing.JFrame {
     search     s   = new search();
     home       h   = new home();
     lend       r   = new lend();
+    Check      k   = new Check();
      
     
     public mainactivity() {
@@ -29,7 +30,7 @@ public class mainactivity extends javax.swing.JFrame {
         clock(); 
         
         changepage();  
-        main.add(r,c);
+        main.add(k,c);
         }  
  
     @SuppressWarnings("unchecked")
@@ -43,7 +44,10 @@ public class mainactivity extends javax.swing.JFrame {
         con = new javax.swing.JButton();
         exit = new javax.swing.JButton();
         main = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        pusername = new javax.swing.JTextField();
+        ppassword = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -56,13 +60,14 @@ public class mainactivity extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        menu.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white));
+        menu.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
 
         home.setBackground(new java.awt.Color(255, 255, 255));
         home.setIcon(new javax.swing.ImageIcon(getClass().getResource("/list_ed/img/home.png"))); // NOI18N
         home.setBorder(null);
         home.setContentAreaFilled(false);
         home.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        home.setFocusable(false);
         home.setMaximumSize(new java.awt.Dimension(100, 100));
         home.setMinimumSize(new java.awt.Dimension(100, 100));
         home.setPreferredSize(new java.awt.Dimension(100, 100));
@@ -73,10 +78,11 @@ public class mainactivity extends javax.swing.JFrame {
         });
 
         edit.setBackground(new java.awt.Color(255, 255, 255));
-        edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/list_ed/img/conn.png"))); // NOI18N
+        edit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/list_ed/img/add.png"))); // NOI18N
         edit.setBorder(null);
         edit.setContentAreaFilled(false);
         edit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        edit.setFocusable(false);
         edit.setMaximumSize(new java.awt.Dimension(100, 100));
         edit.setMinimumSize(new java.awt.Dimension(100, 100));
         edit.setPreferredSize(new java.awt.Dimension(100, 100));
@@ -91,6 +97,7 @@ public class mainactivity extends javax.swing.JFrame {
         search.setBorder(null);
         search.setContentAreaFilled(false);
         search.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        search.setFocusable(false);
         search.setMaximumSize(new java.awt.Dimension(100, 100));
         search.setMinimumSize(new java.awt.Dimension(100, 100));
         search.setPreferredSize(new java.awt.Dimension(100, 100));
@@ -105,6 +112,7 @@ public class mainactivity extends javax.swing.JFrame {
         con.setBorder(null);
         con.setContentAreaFilled(false);
         con.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        con.setFocusable(false);
         con.setMaximumSize(new java.awt.Dimension(100, 100));
         con.setMinimumSize(new java.awt.Dimension(100, 100));
         con.setPreferredSize(new java.awt.Dimension(100, 100));
@@ -115,10 +123,11 @@ public class mainactivity extends javax.swing.JFrame {
         });
 
         exit.setBackground(new java.awt.Color(255, 255, 255));
-        exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/list_ed/img/exit.png"))); // NOI18N
+        exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/list_ed/img/remove.png"))); // NOI18N
         exit.setBorder(null);
         exit.setContentAreaFilled(false);
         exit.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        exit.setFocusable(false);
         exit.setMaximumSize(new java.awt.Dimension(100, 100));
         exit.setMinimumSize(new java.awt.Dimension(100, 100));
         exit.setPreferredSize(new java.awt.Dimension(100, 100));
@@ -138,40 +147,67 @@ public class mainactivity extends javax.swing.JFrame {
                     .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(con, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(con, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, menuLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         menuLayout.setVerticalGroup(
             menuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(menuLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(home, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(edit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(con, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(exit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
-        main.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white, java.awt.Color.white));
+        main.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
         main.setPreferredSize(new java.awt.Dimension(870, 592));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/list_ed/img/bg.jpg"))); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Urdu Typesetting", 1, 24)); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/list_ed/img/username.png"))); // NOI18N
+        jLabel2.setText("Username :");
+
+        jLabel1.setFont(new java.awt.Font("Urdu Typesetting", 1, 24)); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/list_ed/img/password.png"))); // NOI18N
+        jLabel1.setText("Password :");
 
         javax.swing.GroupLayout mainLayout = new javax.swing.GroupLayout(main);
         main.setLayout(mainLayout);
         mainLayout.setHorizontalGroup(
             mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 870, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(mainLayout.createSequentialGroup()
+                .addGap(232, 232, 232)
+                .addGroup(mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(pusername, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ppassword, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(223, Short.MAX_VALUE))
         );
         mainLayout.setVerticalGroup(
             mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 550, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(mainLayout.createSequentialGroup()
+                .addGap(187, 187, 187)
+                .addGroup(mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(pusername, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(mainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(ppassword, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(179, Short.MAX_VALUE))
         );
 
         jMenuBar1.setPreferredSize(new java.awt.Dimension(945, 30));
@@ -181,7 +217,8 @@ public class mainactivity extends javax.swing.JFrame {
 
         jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_X, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem1.setFont(new java.awt.Font("Urdu Typesetting", 0, 14)); // NOI18N
-        jMenuItem1.setText("Exit");
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/list_ed/img/exit2.png"))); // NOI18N
+        jMenuItem1.setText("   Exit   :  ");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -192,8 +229,8 @@ public class mainactivity extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         Date.setForeground(new java.awt.Color(255, 0, 0));
-        Date.setText("                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              Date       :");
-        Date.setFont(new java.awt.Font("Urdu Typesetting", 1, 18)); // NOI18N
+        Date.setText("                                                                                                                                           วันที่ :");
+        Date.setFont(new java.awt.Font("Angsana New", 1, 24)); // NOI18N
         jMenuBar1.add(Date);
 
         date.setForeground(new java.awt.Color(0, 0, 204));
@@ -202,8 +239,8 @@ public class mainactivity extends javax.swing.JFrame {
         jMenuBar1.add(date);
 
         Time.setForeground(new java.awt.Color(255, 0, 0));
-        Time.setText("            Time    :  ");
-        Time.setFont(new java.awt.Font("Urdu Typesetting", 1, 18)); // NOI18N
+        Time.setText("  เวลา    : ");
+        Time.setFont(new java.awt.Font("Angsana New", 1, 24)); // NOI18N
         jMenuBar1.add(Time);
 
         time.setForeground(new java.awt.Color(0, 0, 204));
@@ -211,12 +248,12 @@ public class mainactivity extends javax.swing.JFrame {
         time.setFont(new java.awt.Font("Urdu Typesetting", 1, 18)); // NOI18N
         jMenuBar1.add(time);
 
-        time1.setForeground(new java.awt.Color(0, 0, 204));
-        time1.setText("Status  :  ");
-        time1.setFont(new java.awt.Font("Urdu Typesetting", 1, 18)); // NOI18N
+        time1.setForeground(new java.awt.Color(255, 0, 0));
+        time1.setText("   สถานะ  :  ");
+        time1.setFont(new java.awt.Font("Angsana New", 1, 24)); // NOI18N
         jMenuBar1.add(time1);
 
-        Time1.setForeground(new java.awt.Color(255, 0, 0));
+        Time1.setForeground(new java.awt.Color(0, 0, 204));
         Time1.setText("Offline");
         Time1.setFont(new java.awt.Font("Urdu Typesetting", 1, 18)); // NOI18N
         jMenuBar1.add(Time1);
@@ -232,7 +269,7 @@ public class mainactivity extends javax.swing.JFrame {
                 .addComponent(menu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(main, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -240,7 +277,7 @@ public class mainactivity extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(menu, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(main, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                    .addComponent(main, javax.swing.GroupLayout.DEFAULT_SIZE, 578, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -263,8 +300,9 @@ public class mainactivity extends javax.swing.JFrame {
     }//GEN-LAST:event_searchActionPerformed
 
     private void exitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitActionPerformed
-        //////Exit//////
-        System.exit(0);
+       changepage();
+            main.add(k,c);
+//System.exit(0);
     }//GEN-LAST:event_exitActionPerformed
 
     private void homeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_homeActionPerformed
@@ -275,13 +313,12 @@ public class mainactivity extends javax.swing.JFrame {
  
          
     private void conActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_conActionPerformed
-       changepage(); 
-        
-        main.add(r,c);
+           changepage(); 
+           main.add(r,c);
     }//GEN-LAST:event_conActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-       System.exit(0);
+          
     }//GEN-LAST:event_jMenuItem1ActionPerformed
  
     void changepage(){
@@ -346,11 +383,14 @@ public class mainactivity extends javax.swing.JFrame {
     private javax.swing.JButton exit;
     private javax.swing.JButton home;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JPanel main;
     private javax.swing.JPanel menu;
+    private javax.swing.JTextField ppassword;
+    private javax.swing.JTextField pusername;
     private javax.swing.JButton search;
     private javax.swing.JMenu time;
     private javax.swing.JMenu time1;
